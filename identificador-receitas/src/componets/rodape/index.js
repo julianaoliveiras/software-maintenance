@@ -14,14 +14,14 @@ function Rodape (){
                         <div className="rodape-menu"> 
                             <strong className="rodape-titulo">Termos</strong>
                             <ul>
-                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance/tree/main/identificador-receitas" target="_blank" className="rodape-link">Docs</a></li>
-                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance/tree/main/identificador-receitas" target="_blank" className="rodape-link">Suporte Informações</a></li>
-                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance/tree/main/identificador-receitas" target="_blank" className="rodape-link">Privacidade</a></li>
-                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance/tree/main/identificador-receitas" target="_blank" className="rodape-link">Gerenciar cookies</a></li>
+                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance#readme" target="_blank" className="rodape-link">Docs</a></li>
+                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance#readme" target="_blank" className="rodape-link">Suporte Informações</a></li>
+                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance#readme" target="_blank" className="rodape-link">Privacidade</a></li>
+                                <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/software-maintenance#readme" target="_blank" className="rodape-link">Gerenciar cookies</a></li>
                             </ul>
                         </div>
                         <div className="rodape-menu">
-                            <strong className="rodape-titulo">Paginas</strong>
+                            <strong className="rodape-titulo">Páginas</strong>
                             <ul>
                                 <li className="rodape-menu-item"><a href="https://github.com/julianaoliveiras/" target="_blank" className="rodape-link">GitHub</a></li>
                                 <li className="rodape-menu-item"><a href="https://www.linkedin.com/in/oliveira-juliana-/" target="_blank" className="rodape-link">LinkedIn</a></li>
