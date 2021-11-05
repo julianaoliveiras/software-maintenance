@@ -79,7 +79,7 @@ function NewReceitas({match}){
             }).then((data) => {
                 alert('Receita cadastrada com sucesso!');
                 setCarregando(0);
-                history.push(`/receitas/${data.id}`);
+                history.push('/identificador');
             }).catch(()=>{
                 alert('Falha em cadastrar receitas!');
                 setCarregando(0);
