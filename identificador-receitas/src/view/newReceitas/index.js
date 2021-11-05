@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory  } from 'react-router-dom';
 import Menu from '../../componets/menu';
 import Rodape from '../../componets/rodape';
 
@@ -24,6 +24,9 @@ function NewReceitas({match}){
     const [imgAtual, setImgAtual] = useState();
     const [imgNova, setImgNova] = useState();
     const [carregando, setCarregando]= useState(0);
+
+    const history = useHistory();
+
     useEffect( ()=> {
         if(match.params.idPost){
         firebase.firestore().collection('receitas').doc(match.params.idPost).get().then( resultado =>{
@@ -73,9 +76,10 @@ function NewReceitas({match}){
                 usuario: usuarioEmail,
                 visualizacoes: 0
 
-            }).then(() => {
+            }).then((data) => {
                 alert('Receita cadastrada com sucesso!');
                 setCarregando(0);
+                history.push(`/receitas/${data.id}`);
             }).catch(()=>{
                 alert('Falha em cadastrar receitas!');
                 setCarregando(0);
