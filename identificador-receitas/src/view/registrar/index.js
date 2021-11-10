@@ -4,7 +4,7 @@ import firebase from '../../config/firebase';
 import 'firebase/auth'
 import Rodape from '../../componets/rodape';
 import Menu from '../../componets/menu';
-
+import Swal from 'sweetalert2';
 
 function Registrar(){
     const [email, setEmail]= useState();
@@ -15,23 +15,23 @@ function Registrar(){
     function validar(){
        
         if(!email || !senha ){
-            alert('Você precisa preencher todos os campos! 😒');
+            Swal.fire({icon: 'error', title: 'Você precisa preencher todos os campos! 😒', timer: 1500});
         }
         firebase.auth().createUserWithEmailAndPassword(email, senha).then(resultado=>{
-            alert('Cadastrado com sucesso');
+            Swal.fire({icon: 'success', title: 'Cadastrado com sucesso', timer: 1000});
         }).catch(erro=>{
             switch(erro.message){
                 case 'Password should be at least 6 characters':
-                    alert('A senha deve ter pelo menos 6 caracteres');
+                    Swal.fire({icon: 'error', title: 'A senha deve ter pelo menos 6 caracteres', timer: 1500});
                     break;
                 case 'The email address is already in use by another account.':
-                    alert('Este email já está sendo usado por outra conta.')
+                    Swal.fire({icon: 'error', title: 'Este email já está sendo usado por outra conta.', timer: 1500});
                     break;
                 case 'The email addres is badly formatted.':
-                    alert('O formato do email é inválido');
+                    Swal.fire({icon: 'error', title: 'O formato do email é inválido', timer: 1500});
                     break;
                 default:
-                    alert('Não foi possível cadastrar. Por favor tente mais tarde!');
+                    Swal.fire({icon: 'error', title: 'Não foi possível cadastrar. Por favor tente mais tarde!', timer: 1500});
                     break;
             }
 

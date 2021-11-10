@@ -12,15 +12,16 @@ import titulo from '../img/titulo.png';
 import lista from '../img/lista.png';
 import livroReceitas from '../img/livro-de-receitas.png';
 import lixo from '../img/lata-de-lixo.png';
+import { useHistory  } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 function Receitas({match}){
     const [post, setPost] = useState({});
     const [urlImg, setUrlImg] = useState({});
     const usuarioLogado = useSelector(state => state.usuarioEmail);
     const [carregando, setCarregando] = useState(1);
-    const [excluido, setExcluido]= useState(0);
 
-   
+    const history = useHistory();
 
     useEffect( () => {
         firebase.firestore().collection('receitas').doc(match.params.idPost).get().then( resultado => {
@@ -34,17 +35,13 @@ function Receitas({match}){
 
     function remover(){
         firebase.firestore().collection('receitas').doc(match.params.idPost).delete().then(()=>{
-            setExcluido(1);
+            Swal.fire({icon: 'success', title: 'Receita removida!', timer: 1500, showConfirmButton: false});
+            history.push('/post/meus');
         })
     }
 
     return(
         <>
-        {
-            excluido? <Redirect to='/identificador'></Redirect>
-            :
-            null
-        }
         <div className="fundo6">
         <Menu></Menu>
         <div className="container">

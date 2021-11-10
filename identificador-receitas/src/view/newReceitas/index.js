@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory  } from 'react-router-dom';
 import Menu from '../../componets/menu';
 import Rodape from '../../componets/rodape';
-
-
-
+import Swal from 'sweetalert2'
 import firebase from '../../config/firebase';
 
 function NewReceitas({match}){
@@ -53,16 +51,18 @@ function NewReceitas({match}){
             hora: hora,
             imagens: imgNova ? imgNova.name : imgAtual
         }).then( () => {
-           alert('Receita atualizada!')
+           Swal.fire({icon: 'success', title: 'Receita atualizada!', timer: 1500, showConfirmButton: false});
             setCarregando(0);
         }).catch(erro => {
-            alert(erro);
+            // alert(erro);
+            Swal.fire({icon: 'error', title: erro});
             setCarregando(0);
         })
     }
 
     function cadastrarReceitas(){
         setCarregando(1);
+       
         storage.ref(`Imagens/${imgNova.name}`).put(imgNova).then(()=>{
             db.collection('receitas').add({
                 titulo: titulo,
@@ -77,11 +77,13 @@ function NewReceitas({match}){
                 visualizacoes: 0
 
             }).then((data) => {
-                alert('Receita cadastrada com sucesso!');
+                Swal.fire({icon: 'success', title: 'Receita cadastrada com sucesso!', timer: 1500, showConfirmButton: false});
                 setCarregando(0);
-                history.push('/identificador');
+                setTimeout(() => {
+                    history.push('/identificador');
+                }, 1500);
             }).catch(()=>{
-                alert('Falha em cadastrar receitas!');
+                Swal.fire({icon: 'error', title: 'Falha em cadastrar receitas!', timer: 1500, showConfirmButton: false});
                 setCarregando(0);
             })
         });
