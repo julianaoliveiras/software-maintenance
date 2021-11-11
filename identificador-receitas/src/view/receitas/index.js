@@ -34,10 +34,26 @@ function Receitas({match}){
     }, []);
 
     function remover(){
-        firebase.firestore().collection('receitas').doc(match.params.idPost).delete().then(()=>{
-            Swal.fire({icon: 'success', title: 'Receita removida!', timer: 1500, showConfirmButton: false});
-            history.push('/post/meus');
-        })
+        Swal.fire({
+            title: 'Tem certeza que deseja excluir?',
+            text: "Você não poderá reverter isto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, deletar'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Deletado!',
+                  'Sua receita foi deletada com sucesso!',
+                  'success'
+                );
+                firebase.firestore().collection('receitas').doc(match.params.idPost).delete().then(()=>{
+                    history.push('/post/meus');
+                })
+              }
+          })
     }
 
     return(
