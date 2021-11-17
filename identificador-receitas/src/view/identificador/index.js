@@ -60,7 +60,7 @@ const Identificador = function ({ match }) {
   useEffect(() => {
     if (listaReceitas && listaReceitas.length && pesquisa && typeof pesquisa === 'string') {
       let tmp_achadas = listaReceitas.filter((receita) => {
-        console.log(receita);
+//         console.log(receita);
         // debugger;
         let tpm_titulo = new RegExp(pesquisa.normalize('NFD'), 'gi');
         if ((receita.titulo && receita.titulo.normalize('NFD').match(tpm_titulo)) || (receita.descricao && receita.descricao.normalize('NFD').match(tpm_titulo))) {
