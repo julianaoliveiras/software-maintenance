@@ -26,6 +26,7 @@ function Caixa() {
                 </div>
               </form> 
               <div className="limpar"></div>*/}
+             {/* TODO:  resolver se vai ser um botam mesmo as vai ser um newsfeed*/}
               <button href={href_email} target="_blank" type="button" class="btn-enviar">
                 <span className="btn-send-icon" aria-hidden="true"></span>
                 Clique aqui 🚀
