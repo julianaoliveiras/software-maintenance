@@ -1,13 +1,12 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './identificador.css';
-import { Link } from 'react-router-dom';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import Menu from '../../componets/menu';
 import Rodape from '../../componets/rodape';
-import Login from '../login';
-import Caixa from '../../componets/caixa-email';
 import ReceitaCard from '../../componets/receitaCard';
 import Bolinhas from '../../componets/bolinhas';
 
@@ -23,6 +22,8 @@ const Identificador = function ({ match }) {
   const [recipeData, setRecipeData] = useState({page: 1, pages: 1, data: []});
 
   let tmplistaReceitas = [];
+
+  // Carregar todas as receitas cadastradas
   useEffect(() => {
     if (match && match.params.parametro) {
       firebase
@@ -62,50 +63,46 @@ const Identificador = function ({ match }) {
     }
   }, []);
 
-
+  // Validação e listagem durante a busca
   useEffect(() => {
-    if (listaReceitas && listaReceitas.length && pesquisa && typeof pesquisa === 'string') {
+    if (listaReceitas && listaReceitas.length && pesquisa?.length > 0 && typeof pesquisa === 'string') {
       let tmp_achadas = listaReceitas.filter((receita) => {
-//         console.log(receita);
-        // debugger;
         let tpm_titulo = new RegExp(pesquisa.normalize('NFD'), 'gi');
         if ((receita.titulo && receita.titulo.normalize('NFD').match(tpm_titulo)) || (receita.descricao && receita.descricao.normalize('NFD').match(tpm_titulo))) {
           return receita;
         }
       });
 
-      return () => {
-        setReceitas(tmp_achadas);
-        setPages(Math.ceil(tmp_achadas.length / pageLength));
-      };
+      setReceitas(tmp_achadas);
+      setPages(Math.ceil(tmp_achadas.length / pageLength));
     } else if (listaReceitas && listaReceitas.length) {
-      //#endregion
-      return () => {
-        setReceitas(listaReceitas);
-      };
+      setReceitas(recipeData.data);
     }
   }, [pesquisa]);
 
+  // Popula o estado "recipeData" para criar a paginação
   useEffect(() => {
     if (listaReceitas) {
       setPages(Math.ceil(listaReceitas.length / pageLength));
       const dataArray = [];
       
       for(let i = (pageLength * (recipeData?.page-1)); i < pageLength * recipeData.page; i++){
-        dataArray.push(listaReceitas[i])
+        if(listaReceitas[i] !== undefined)
+          dataArray.push(listaReceitas[i])
       }
       setRecipeData({...recipeData, pages: Math.ceil(listaReceitas.length / pageLength), data: dataArray})
-      // setReceitas(listaReceitas);
 
     } else return () => {};
   }, [listaReceitas]);
 
+  // Popula o estado utilizado para a renderização das receitas
   useEffect(()=> {
     if(recipeData?.data?.length > 0){
       setReceitas(recipeData.data);
     }
   }, [recipeData, recipeData.data])
 
+  // paginação
   const changePage = (newPage) => {
     const dataArray = [];     
     for(let i = (pageLength * (newPage)); i < pageLength * (newPage+1); i++){
@@ -115,6 +112,7 @@ const Identificador = function ({ match }) {
     setRecipeData({page: newPage+1, pages: Math.ceil(listaReceitas.length / pageLength), data: dataArray})
   }
 
+  // renderiza as bolinhas da paginação
   const renderBolinhas =  ()=> {
     const bolinhas = [];
     for(let i = 0; i < pages; i++){
@@ -164,16 +162,10 @@ const Identificador = function ({ match }) {
         ))}
       </div>
       
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20}}>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 150}}>
         {renderBolinhas()}
       </div>
       
-
-      <br />
-      <br />
-      <br />
-      <br />
-
       <Rodape />
     </div>
   );
