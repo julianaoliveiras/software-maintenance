@@ -26,9 +26,9 @@ function Caixa() {
                 </div>
               </form> 
               <div className="limpar"></div>*/}
-              <button href="mailto:h4bituei.o@gmail.com" target="_blank" type="button" class="btn-enviar">
+            <button target="_blank" type="button" class="btn-enviar">
                 <span className="btn-send-icon" aria-hidden="true"></span>
-                Clique aqui 🚀
+                <a href="mailto:h4bituei.o@gmail.com" target="_blank" className="menu__link">Clique aqui 🚀</a>
               </button>
             </div>
           </div>
