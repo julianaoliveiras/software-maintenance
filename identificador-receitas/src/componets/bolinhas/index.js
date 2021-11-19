@@ -6,15 +6,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import NewReceitas from '../../view/newReceitas';
 import Identificador from '../../view/identificador';
 
-function Bolinhas(){
+function Bolinhas({active, onClick}){
     return(
-        <div className="centro">
-        <div className= "bolinhas">
-            <Link to="#" className="bolinha ativo"></Link>
-            <Link to="#" className="bolinha"></Link>
-            <Link to="#" className="bolinha"></Link>
+        <div onClick={onClick}>  
+            <Link to="#" className={active ? "bolinha ativo" : "bolinha"}></Link>
             <div className="limpar"></div>
-        </div>
         </div>
         
     )

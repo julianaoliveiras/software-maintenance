@@ -721,3 +721,11 @@ input.form-input {
     background: url(../../view/img/fundo1.png) no-repeat center 0;
     padding-top: 40px;
 }
+
+
+.card-image {
+    height: 350px;
+    width: 350px;
+    border-radius: 8px;
+    object-fit: fill;
+}
