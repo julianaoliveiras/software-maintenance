@@ -10,11 +10,26 @@ import Menu from '../../componets/menu';
 import Rodape from '../../componets/rodape';
 import Swal from 'sweetalert2'
 
+
+
+
+
 function AlterarSenha(){
   const [email, setEmail]= useState();
   const [senha, setSenha]= useState();
 
   const dispatch = useDispatch();
+
+  function recSenha(){
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(resultado => {
+        Swal.fire({icon: 'success', title: 'Email de recuperação de senha enviado', timer: 1500});
+    }).catch(error => {
+        Swal.fire({icon: 'error', title: 'Porfavor insira um email válido', timer: 1500});
+    })
+  }
+
+
     return(
         <div class="fundo8">
         <div class="centro">
@@ -28,15 +43,14 @@ function AlterarSenha(){
                     </div>
                     <div className="form-group form-group-lg">
                         <form className="login-form">
-                        <div class="input">  
-                                <label for="inputdefault"><span class="label-input">E-mail:</span></label>
-                                <input class="form-input " type="text" name="username" placeholder="Entrar com o e-mail">
-                                </input>       
-                            </div>
+                                <div class="input">  
+                                    <label for="inputdefault"><span class="label-input">E-mail:</span></label>
+                                    <input onChange={(e) => setEmail(e.target.value)} class="form-input " type="text" name="username" placeholder="Entrar com o e-mail"/>       
+                                </div>
                             
-                            <div class="btn-logar-box">
-                                <button class="btn btn-default btn-lg btn-logar" type= "button">Enviar link para recuperar a senha</button>
-                            </div> 
+                                <div class="btn-logar-box">
+                                    <button onClick={recSenha} class="btn btn-default btn-lg btn-logar" type= "button">Enviar link para recuperar a senha</button>
+                                </div> 
                         </form>
                     </div> 
                 </div>
