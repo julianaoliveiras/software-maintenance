@@ -13,6 +13,7 @@ import Receitas from './view/receitas';
 import Sobre from './view/sobre';
 import { PersistGate } from 'redux-persist/integration/react';
 import Contato from './view/contato';
+import AlterarSenha from './view/alterarSenha';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
      <Route path= '/post/:parametro' component={Identificador}/>
      <Route path= '/receitas/:idPost' component={Receitas}/>
      <Route path= '/editarPost/:idPost' component={NewReceitas}/>
+     <Route path= '/alterarSenha' component={AlterarSenha}/>
      
    </Router>
    </PersistGate>
