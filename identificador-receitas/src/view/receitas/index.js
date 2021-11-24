@@ -67,10 +67,10 @@ function Receitas({match}){
         <div className="fundo6">
         <Menu></Menu>
         <div className="container" style={{marginTop: 200}}>
-            <div className="d-flex" >
+            <div className="d-flex" style={{paddingLeft: 90, paddingRight: 90, alignItems: 'center', justifyContent: 'center'}} >
                 <img src={urlImg} className="img-banner" alt=""></img>
 
-                <div className="d-flex justify-content-between" style={{marginLeft: 30 , flexWrap: 'wrap'}}>
+                <div className="d-flex justify-content-between" style={{marginLeft: 30 , flexWrap: 'wrap', width:300}}>
                     <div className= "box-info my-2">
                         <div className="d-flex align-items-center">
                             <img src={titulo}></img>
@@ -101,8 +101,9 @@ function Receitas({match}){
                     <p style={{fontSize: 16, fontWeight: 'bold', color: 'white', marginLeft: 10}}>Modo de preparo</p>
                 </div>
                 <div > 
-                    <p className="text-center p-5">
-                        {post.descricao}
+                    <p className="text-left p-5">
+                        {console.log(post?.descricao?.split('*'))}
+                        {post?.descricao?.split('*').map(item => item?.length > 0 && <p style={{marginBottom: 10}}>*{item}</p>)}
                     </p>
                 </div>
             </div>
@@ -111,7 +112,7 @@ function Receitas({match}){
             <div className="box-editar">
                 {usuarioLogado == post.usuario ?
                     <Link to={`/editarPost/${match.params.idPost}`} className="btn btn-default btn-lg btn-logar">
-                        <img src={editar}></img>
+                        <img src={editar}/>
                         <p style={{marginLeft: 8}}>Editar Receita</p>
                     </Link>
                 :
@@ -121,7 +122,8 @@ function Receitas({match}){
                 {
                     usuarioLogado==post.usuario?
                     <div>
-                        <button className="btn btn-default btn-lg btn-logar" type="button" onClick={remover}> Remover Receita </button>
+                        
+                        <button className="btn btn-default btn-lg btn-logar" type="button" onClick={remover}> <img src={lixo}/><span style={{marginLeft: 8}}>Remover Receita</span> </button>
                     </div>
                     :
                     null
