@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
+/* eslint-disable jsx-a11y/alt-text */
 import React, {useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -26,13 +30,15 @@ function Receitas({match}){
     useEffect( () => {
         firebase.firestore().collection('receitas').doc(match.params.idPost).get().then( resultado => {
             setPost(resultado.data());
-            firebase.storage().ref(`Imagens/${post.imagens}`).getDownloadURL().then( url => {
+            console.log('resultado.data',resultado.data())
+            firebase.storage().ref(`Imagens/${resultado.data().imagens}`).getDownloadURL().then( url => {
                 setUrlImg(url)
                 setCarregando(0);
             });
         })
     }, []);
 
+    console.log('urlImg',urlImg)
     function remover(){
         Swal.fire({
             title: 'Tem certeza que deseja excluir?',
@@ -60,62 +66,62 @@ function Receitas({match}){
         <>
         <div className="fundo6">
         <Menu></Menu>
-        <div className="container">
-            
-       
-           
-            <div className="row">
-            <br/>  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>  <br/>
+        <div className="container" style={{marginTop: 200}}>
+            <div className="d-flex" >
                 <img src={urlImg} className="img-banner" alt=""></img>
+
+                <div className="d-flex justify-content-between" style={{marginLeft: 30 , flexWrap: 'wrap'}}>
+                    <div className= "box-info my-2">
+                        <div className="d-flex align-items-center">
+                            <img src={titulo}></img>
+                            <p className="cardTitle">Título</p>
+                        </div>
+                        <span className="mt-3">{post.titulo}</span>
+                    </div>
+                    <div className= "box-info my-2">
+                        <div className="d-flex align-items-center">
+                            <img src={lista}></img>
+                            <p className="cardTitle">Categoria</p>
+                        </div>
+                        <span className="mt-3">{post.categoria}</span>
+                    </div>
+                    <div className= "box-info my-2">
+                        <div className="d-flex align-items-center">
+                            <img src={lista}></img>
+                            <p className="cardTitle">Data</p>
+                        </div>
+                        <span className="mt-3">{post.data}</span>
+                    </div>
+                </div>
             </div>
-            <div className="row mt-5 d-flex justify-content-around">
-
-                <div className= "col-md-2 col-sm-12 p-3 box-info my-2">
-                    <img src={titulo}></img><br/>
-                    <h1><strong>Título</strong></h1>
-                    <span className="mt-3">{post.titulo}</span>
-
+            
+            <div className="descriptionContainer">
+                <div style={{backgroundColor: '#FF4F4F', borderTopLeftRadius: 8, borderTopRightRadius: 8, padding: 16, display: 'flex',  alignItems: 'center', justifyContent: 'center'}}> 
+                    <img src={livroReceitas} style={{width: 24, height: 24}}/>
+                    <p style={{fontSize: 16, fontWeight: 'bold', color: 'white', marginLeft: 10}}>Modo de preparo</p>
                 </div>
-                <div className= "col-md-2 col-sm-12 p-3 box-info my-2">
-                 <img src={lista}></img><br/>
-                    <h5><strong>Categoria</strong></h5>
-                    <span className="mt-3">{post.categoria}</span>
-                </div>
-                <div className= "col-md-2 col-sm-12 p-3 box-info  my-2">
-                <img src={icon}></img><br/>
-                    <h5><strong>Data</strong></h5>
-
-                    <span className="mt-3">{post.data}</span>
-
+                <div > 
+                    <p className="text-center p-5">
+                        {post.descricao}
+                    </p>
                 </div>
             </div>
-            <div className="box-editar mt-5">
-            <br/>
-            <img src={livroReceitas}></img>
-            </div>
-                <div className="">
-                <p className="text-center p-5">
-                    {post.descricao}
-                    <br/><br/><br/><br/><br/>
-                </p>
-                </div>
                
            
             <div className="box-editar">
-                {
-                    usuarioLogado == post.usuario?
-                    <Link to={`/editarPost/${match.params.idPost}`} className="btn-editar">
-                <br/>
-                <img src={editar}></img>
-                </Link>
+                {usuarioLogado == post.usuario ?
+                    <Link to={`/editarPost/${match.params.idPost}`} className="btn btn-default btn-lg btn-logar">
+                        <img src={editar}></img>
+                        <p style={{marginLeft: 8}}>Editar Receita</p>
+                    </Link>
                 :
                 null
                 }
                 
                 {
                     usuarioLogado==post.usuario?
-                    <div  className="btn-logar-box">
-                    <button className="btn btn-default btn-lg btn-logar w-100" type="button" onClick={remover}> Remover Receita </button>
+                    <div>
+                        <button className="btn btn-default btn-lg btn-logar" type="button" onClick={remover}> Remover Receita </button>
                     </div>
                     :
                     null
